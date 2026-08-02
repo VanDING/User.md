@@ -22,8 +22,8 @@ alwaysAllow: ["Bash", "Write", "Read"]
 2. **html-preview 沙箱禁 JS，不能直接作答**：必须让用户用本地浏览器打开
    quiz.html 文件（file://），答完点「生成答案串」，把答案串粘贴回对话。
 3. 问卷支持中英双语：首页先选语言（LANG），界面即时切换；也可选双语同时显示。
-4. 作答→画像的产物是**假设**，不是事实：必须经过确认环节（是/否/部分正确），
-   未确认的结论不得写入 USER.md。
+4. 作答→画像的产物是**假设**，不是事实：除冲突裁决项外无需逐条确认（其余默认通过）；
+   部署（写入 agent 记忆）前必须获得用户明确确认。
 
 ## 执行流程
 
@@ -52,19 +52,21 @@ alwaysAllow: ["Bash", "Write", "Read"]
    - 用 call_llm（或等效能力），attachments 传入：
      `generate_prompt.md`（模板）+ `profile.json` + `conflicts.json`
    - 若 `answers.EXT` 存在，将补充内容写入 prompt（「用户补充信息: …」）
-   - 要求严格输出四部分：画像报告 / 十条确认句（含 [维度, 置信度]）/
-     冲突裁决问题 / USER.md 草案
+   - 要求严格输出三部分：画像报告 / 冲突裁决问题 / USER.md 草案
    - 生成语言以 profile.language 为准（zh 中文 / en English / bilingual 中文为主）
 
-6. **确认环节（强制）**
-   - 把十条确认句 + 冲突裁决问题呈现给用户，回答选项：是 / 否 / 部分正确
+6. **冲突裁决（唯一确认环节）**
+   - 仅将冲突裁决问题（含 D4×D5 象限规则）呈现给用户，选项：采纳建议 / 调整
+   - 其余画像内容（画像报告、USER.md 草案）默认通过，用户可主动提出异议
    - 汇总修正 → 需要时让 LLM 按修正重写 USER.md 草案
 
-7. **落地（含环境适配）**
-   - 确认通过后先写规范文档（canonical USER.md + user-profile.json 到会话 data 目录）
-   - 检测用户所在 agent 环境，渲染成对应文档：
-     `python3 detect_env.py`（检测 / `--list` 列全部 / `--agent <slug>` 强制指定）
+7. **落地（生成 + 部署分离）**
+   - 先写规范文档（canonical USER.md + user-profile.json 到会话 data 目录），不自动部署
+   - **部署前必须获得用户明确确认**（部署到哪个 agent、项目内或全局）；
+     或由用户自行部署：
      `python3 render_profile.py USER.md --agent <slug> --dest project|global [--force]`
+   - 检测用户所在 agent 环境：`python3 detect_env.py`（检测 / `--list` 列全部 /
+     `--agent <slug>` 强制指定）
    - agent → 文档约定见 `agents.json`：craftagent→`USER.md`（全局 ~/.agents/USER.md，
      另附 user-profile.json）；claude→`CLAUDE.md`（全局 ~/.claude/CLAUDE.md）；
      codex/opencode/workbuddy→`AGENTS.md`（全局分别 ~/.codex / ~/.config/opencode /
