@@ -1,10 +1,10 @@
 # User.md — AI Collaboration User Assessment
 
-**Take 10 minutes, make your Agents better work cooperate with you.**
-
 **English** | [简体中文](README.zh-CN.md)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+**Take 10 minutes, make your Agents better cooperate with you.**
 
 A psychometric-style assessment that produces a portable, personalized user-collaboration
 profile (`USER.md` / a personalized `AGENTS.md`). The pipeline: a 60-item questionnaire →
@@ -26,25 +26,6 @@ graph LR
     L --> U[conflict adjudication]
     U -->|resolved| W[USER.md + user-profile.json]
 ```
-
-## Layout
-
-| Path | What it is |
-|------|------------|
-| `questionnaire.json` | Item bank: 51 rating items (1–5 anchored) + 6 contextual + 2 quality + 1 language item, bilingual |
-| `translations_en.json` | English translation source (re-merge after editing items) |
-| `make_quiz.py` / `quiz.html` | Quiz generator / self-contained form (live language switch on LANG, optional EXT free text, calibration-ruler theme) |
-| `parse_answers.py` | Answer string → answers JSON (tolerant separators, value-range checks, EXT percent-decoding) |
-| `score.py` | 10-dimension scoring + quality detection (attention / consistency / extreme / mixed / low-discrimination) |
-| `consistency_check.py` | D4×D5 quadrant rule + cross-dimension conflict detection |
-| `generate_prompt.md` | LLM generation template (report / conflict adjudication / USER.md draft, incl. EXT handling) |
-| `agents.json` | agent 环境约定（检测信号 / 文档名 / 全局路径），可改 |
-| `detect_env.py` | 检测当前 agent 环境（env 变量 + 目录信号，自动/强制/JSON） |
-| `render_profile.py` | 规范画像 → 目标 agent 文档（CLAUDE.md / AGENTS.md / USER.md，含首行标题改写与覆盖保护） |
-| `skill/user-collab-profile/` | Reusable skill package (SKILL.md + full file set; triggers on `[skill:user-collab-profile]`) |
-| `docs/` | `plan.md` (design plan & revision log v2.3), `pipeline.md` (scale design & validation records) |
-| `demo/` | Generated demos (v1.2 current + v1.1 historical) |
-| `test-runs/` | Test artifacts: `synthetic/` (4 simulated answer sets: normal / careless / satisficing / roundtrip), `captain/` (two real answer rounds, v1.2 & v3) |
 
 ## Quick start
 
@@ -91,29 +72,6 @@ python3 consistency_check.py profile.json --out conflicts.json
 # 6. Conflict adjudication → write USER.md + user-profile.json
 ```
 
-## Key design decisions
-
-- **5-point anchored scale** (1 Strongly disagree → 5 Strongly agree): consistent with
-  IPIP/Big Five practice; every level is nameable, eliminating the reference-frame
-  ambiguity of a 1–10 scale.
-- **Relative bands as primary output** (`rel_band`, dimension vs. the person's own mean
-  ±0.25): empirically stable across strict/lenient response styles (10/10 match on both
-  simulation styles), where absolute bands flip (the v1.2 fix for the original defect).
-- **Real i18n**: all 59 items fully translated; selecting LANG switches the entire UI
-  live (zh / en / bilingual).
-- **Optional EXT field**: free text percent-encoded into the answer string, decoded
-  losslessly at parse time, and treated as a first-class generation input (facts →
-  work context, preferences → candidate behavioral rules, hard requirements →
-  directly into USER.md, noise → discarded).
-- **Quality detection**: `attention_failed` (attention items), `consistency_mismatch`
-  (CC1 vs S3), `extreme_responding` (all-extreme answers), `low_discrimination`
-  (over-concentrated scores), `mixed_dimension` (within-dimension std > 1.25,
-  confidence dropped to 0.75).
-- **Conflict-only adjudication**: the generated profile is a hypothesis, not fact —
-  only conflict items (incl. the D4×D5 quadrant rule) require user adjudication;
-  everything else passes by default. Deployment stays separate from generation and
-  happens only on explicit user confirmation.
-
 ## Environment detection
 
 The profile is rendered into the document format of the agent the user is actually running:
@@ -147,6 +105,26 @@ convention (web verification pending).
   (D1 became consistent); profile confirmed by the user.
 - Browser E2E: language switching / EXT encode-decode round trip / 61-item submit →
   parse → score, all passing.
+
+## Layout
+
+| Path | What it is |
+|------|------------|
+| `questionnaire.json` | Item bank: 51 rating items (1–5 anchored) + 6 contextual + 2 quality + 1 language item, bilingual |
+| `translations_en.json` | English translation source (re-merge after editing items) |
+| `make_quiz.py` / `quiz.html` | Quiz generator / self-contained form (live language switch on LANG, optional EXT free text, calibration-ruler theme) |
+| `parse_answers.py` | Answer string → answers JSON (tolerant separators, value-range checks, EXT percent-decoding) |
+| `score.py` | 10-dimension scoring + quality detection (attention / consistency / extreme / mixed / low-discrimination) |
+| `consistency_check.py` | D4×D5 quadrant rule + cross-dimension conflict detection |
+| `generate_prompt.md` | LLM generation template (report / conflict adjudication / USER.md draft, incl. EXT handling) |
+| `agents.json` | agent 环境约定（检测信号 / 文档名 / 全局路径），可改 |
+| `detect_env.py` | 检测当前 agent 环境（env 变量 + 目录信号，自动/强制/JSON） |
+| `render_profile.py` | 规范画像 → 目标 agent 文档（CLAUDE.md / AGENTS.md / USER.md，含首行标题改写与覆盖保护） |
+| `skill/user-collab-profile/` | Reusable skill package (SKILL.md + full file set; triggers on `[skill:user-collab-profile]`) |
+| `docs/` | `plan.md` (design plan & revision log v2.3), `pipeline.md` (scale design & validation records) |
+| `demo/` | Generated demos (v1.2 current + v1.1 historical) |
+| `test-runs/` | Test artifacts: `synthetic/` (4 simulated answer sets: normal / careless / satisficing / roundtrip), `captain/` (two real answer rounds, v1.2 & v3) |
+
 
 ## Backlog
 
