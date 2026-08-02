@@ -1,5 +1,7 @@
 # User.md — AI Collaboration User Assessment
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A psychometric-style assessment that produces a portable, personalized user-collaboration
 profile (`USER.md` / a personalized `AGENTS.md`). The pipeline: a 60-item questionnaire →
 scoring & response-quality detection → consistency check → LLM-generated profile →

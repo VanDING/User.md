@@ -1,5 +1,7 @@
 # User.md — AI 协作用户认知测评
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 生成可携带的用户协作画像（USER.md / 个性化 AGENTS.md）：一份 60 题心理测量式问卷 →
 计分与质量检测 → 一致性检查 → LLM 生成 → 用户确认 → 落地。问卷、计分、生成全链路
 与 agent 无关，可独立运行，也可打包为 skill（`skill/user-collab-profile/`）复用。
