@@ -1,14 +1,14 @@
 # User.md — AI 协作用户认知测评
 
+**Take 10 minutes，Make your Agents better work cooperate with you.**
+
 [English](README.md) | **简体中文**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 生成可携带的用户协作画像（USER.md / 个性化 AGENTS.md）：一份 60 题心理测量式问卷 →
-计分与质量检测 → 一致性检查 → LLM 生成 → 用户确认 → 落地。问卷、计分、生成全链路
+计分与质量检测 → 一致性检查 → LLM 生成 → 冲突裁决 → 落地。问卷、计分、生成全链路
 与 agent 无关，可独立运行，也可打包为 skill（`skill/user-collab-profile/`）复用。
-
-**状态：MVP 已完成并通过真实作答验证；当前产物为测试画像，未部署到 `~/.agents/USER.md`。**
 
 ## 流程总览
 
@@ -20,8 +20,8 @@ graph LR
     P --> S[score.py<br/>计分 + 质量检测]
     S --> C[consistency_check.py<br/>跨维度冲突]
     C --> L[generate_prompt.md<br/>+ call_llm 生成画像]
-    L --> U[确认环节<br/>10 条确认句 + 冲突裁决]
-    U -->|确认| W[USER.md + user-profile.json]
+    L --> U[冲突裁决]
+    U -->|裁决| W[USER.md + user-profile.json]
 ```
 
 ## 目录结构
@@ -34,7 +34,7 @@ graph LR
 | `parse_answers.py` | 答案串 → answers JSON（容忍分隔符、校验值域、EXT 百分号解码） |
 | `score.py` | 10 维度计分 + 质量检测（attention/consistency/extreme/mixed/low_discrimination） |
 | `consistency_check.py` | D4×D5 象限规则 + 跨维度冲突检测 |
-| `generate_prompt.md` | LLM 生成模板（画像报告 / 十条确认句 / 冲突裁决 / USER.md 草案，含 EXT 处理） |
+| `generate_prompt.md` | LLM 生成模板（画像报告 / 冲突裁决 / USER.md 草案，含 EXT 处理） |
 | `agents.json` | agent 环境约定（检测信号 / 文档名 / 全局路径），可改 |
 | `detect_env.py` | 检测当前 agent 环境（环境变量 + 目录信号，自动/强制/JSON） |
 | `render_profile.py` | 规范画像 → 目标 agent 文档（CLAUDE.md / AGENTS.md / USER.md，含首行标题改写与覆盖保护） |
@@ -60,7 +60,7 @@ cp -r skill/user-collab-profile ~/.agents/skills/
 ```
 
 装好后用 `[skill:user-collab-profile]` 触发，agent 会按 SKILL.md 协议自动跑完整套流程：
-问卷生成 → 作答 → 解析 → 计分 → 一致性检查 → LLM 生成画像 → 确认环节 →
+问卷生成 → 作答 → 解析 → 计分 → 一致性检查 → LLM 生成画像 → 冲突裁决 →
 环境检测渲染落地（CLAUDE.md / AGENTS.md / USER.md）。
 
 依赖：脚本需要 `python3`；作答需要浏览器；LLM 生成一步由运行 skill 的 agent 完成。
@@ -82,21 +82,22 @@ python3 consistency_check.py profile.json --out conflicts.json
 
 # 5. 用 LLM 生成画像：call_llm，attachments 传 generate_prompt.md + profile.json + conflicts.json
 #    （有 EXT 补充信息则一并写入 prompt）
-# 6. 确认环节 → 落盘 USER.md + user-profile.json
+# 6. 冲突裁决 → 落盘 USER.md + user-profile.json
 ```
 
 ## 关键设计决策
 
 - **5 档带锚点**（1 完全不同意 → 5 完全同意）：与 IPIP/大五一致，每档可命名，消除 1-10 量表的参照系歧义。
 - **相对档位为主输出**（rel_band，维度 vs 本人均值 ±0.25）：实测严苛/宽松打分风格下
-  相对档位 10/10 稳定，绝对档位会翻转（v1.2 修复的 MVP 缺陷）。
+  相对档位 10/10 稳定，绝对档位会翻转（v1.2 修复的早期缺陷）。
 - **真 i18n**：59 题全量英译，LANG 选中后全界面实时切换（zh/en/双语）。
 - **EXT 可选补充字段**：自由文本百分号编码进答案串，解析原样还原，生成时作为一等输入
   （事实→工作背景、偏好→行为指令、硬要求→直接进 USER.md、噪声→丢弃）。
 - **质量检测**：`attention_failed`（注意力题）、`consistency_mismatch`（CC1 vs S3）、
   `extreme_responding`（全极值）、`low_discrimination`（分值过度集中）、
   `mixed_dimension`（维内 std>1.25，降置信度至 0.75）。
-- **确认环节强制**：生成结果只是假设，10 条确认句 + 冲突裁决通过后才可落地。
+- **仅冲突项需裁决**：生成结果只是假设，仅冲突项（含 D4×D5 象限规则）需用户裁决，
+  其余默认通过；部署与生成分离，仅在用户明确确认后执行。
 
 ## 环境检测
 
@@ -131,4 +132,4 @@ python3 render_profile.py USER.md --agent craftagent --dest global # → ~/.agen
 
 - D11 迭代节奏维度；living 阈值可配置；小样本信度（α≥0.6）；常模/百分位；
   决策关键维度强制选择式（forced-choice）题。
-- 正式启用：将 test-runs/captain/v3 的 USER.md + user-profile.json 部署到 `~/.agents/`。
+

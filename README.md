@@ -1,5 +1,7 @@
 # User.md — AI Collaboration User Assessment
 
+**Take 10 minutes, make your Agents better work cooperate with you.**
+
 **English** | [简体中文](README.zh-CN.md)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -7,12 +9,9 @@
 A psychometric-style assessment that produces a portable, personalized user-collaboration
 profile (`USER.md` / a personalized `AGENTS.md`). The pipeline: a 60-item questionnaire →
 scoring & response-quality detection → consistency check → LLM-generated profile →
-user confirmation → deliverable `USER.md`. Every stage is agent-agnostic: the instrument,
+conflict adjudication → deliverable `USER.md`. Every stage is agent-agnostic: the instrument,
 scoring, and generation all run independently, and the whole thing is packaged as a
 reusable skill (`skill/user-collab-profile/`).
-
-**Status: MVP complete and verified against real responses. The current profile is a
-test artifact — NOT deployed to `~/.agents/USER.md`.**
 
 ## Pipeline
 
@@ -24,8 +23,8 @@ graph LR
     P --> S[score.py<br/>scoring + quality checks]
     S --> C[consistency_check.py<br/>cross-dimension conflicts]
     C --> L[generate_prompt.md<br/>+ call_llm profile generation]
-    L --> U[confirmation loop<br/>10 statements + conflict adjudication]
-    U -->|confirmed| W[USER.md + user-profile.json]
+    L --> U[conflict adjudication]
+    U -->|resolved| W[USER.md + user-profile.json]
 ```
 
 ## Layout
@@ -38,7 +37,7 @@ graph LR
 | `parse_answers.py` | Answer string → answers JSON (tolerant separators, value-range checks, EXT percent-decoding) |
 | `score.py` | 10-dimension scoring + quality detection (attention / consistency / extreme / mixed / low-discrimination) |
 | `consistency_check.py` | D4×D5 quadrant rule + cross-dimension conflict detection |
-| `generate_prompt.md` | LLM generation template (report / 10 confirmation statements / adjudication / USER.md draft, incl. EXT handling) |
+| `generate_prompt.md` | LLM generation template (report / conflict adjudication / USER.md draft, incl. EXT handling) |
 | `agents.json` | agent 环境约定（检测信号 / 文档名 / 全局路径），可改 |
 | `detect_env.py` | 检测当前 agent 环境（env 变量 + 目录信号，自动/强制/JSON） |
 | `render_profile.py` | 规范画像 → 目标 agent 文档（CLAUDE.md / AGENTS.md / USER.md，含首行标题改写与覆盖保护） |
@@ -65,7 +64,7 @@ cp -r skill/user-collab-profile ~/.agents/skills/
 
 Then trigger the entire flow with `[skill:user-collab-profile]` — the agent executes the
 full protocol itself: quiz build → answer → parse → score → consistency check → LLM
-profile generation → confirmation loop → environment-aware rendering (CLAUDE.md /
+profile generation → conflict adjudication → environment-aware rendering (CLAUDE.md /
 AGENTS.md / USER.md).
 
 Requirements: `python3` for the scripts; a browser to take the quiz; the LLM step is
@@ -89,7 +88,7 @@ python3 consistency_check.py profile.json --out conflicts.json
 # 5. Generate the profile with an LLM: call_llm, attachments =
 #    generate_prompt.md + profile.json + conflicts.json
 #    (include any EXT user-supplied text in the prompt)
-# 6. Confirmation loop → write USER.md + user-profile.json
+# 6. Conflict adjudication → write USER.md + user-profile.json
 ```
 
 ## Key design decisions
@@ -99,7 +98,7 @@ python3 consistency_check.py profile.json --out conflicts.json
   ambiguity of a 1–10 scale.
 - **Relative bands as primary output** (`rel_band`, dimension vs. the person's own mean
   ±0.25): empirically stable across strict/lenient response styles (10/10 match on both
-  simulation styles), where absolute bands flip (the MVP defect fixed in v1.2).
+  simulation styles), where absolute bands flip (the v1.2 fix for the original defect).
 - **Real i18n**: all 59 items fully translated; selecting LANG switches the entire UI
   live (zh / en / bilingual).
 - **Optional EXT field**: free text percent-encoded into the answer string, decoded
@@ -110,8 +109,10 @@ python3 consistency_check.py profile.json --out conflicts.json
   (CC1 vs S3), `extreme_responding` (all-extreme answers), `low_discrimination`
   (over-concentrated scores), `mixed_dimension` (within-dimension std > 1.25,
   confidence dropped to 0.75).
-- **Mandatory confirmation loop**: the generated profile is a hypothesis, not fact —
-  the 10 confirmation statements and conflict adjudication must pass before landing.
+- **Conflict-only adjudication**: the generated profile is a hypothesis, not fact —
+  only conflict items (incl. the D4×D5 quadrant rule) require user adjudication;
+  everything else passes by default. Deployment stays separate from generation and
+  happens only on explicit user confirmation.
 
 ## Environment detection
 
@@ -152,7 +153,6 @@ convention (web verification pending).
 - D11 iteration-tempo dimension; configurable living thresholds; small-sample
   reliability (α ≥ 0.6); norms/percentiles; forced-choice items for
   decision-critical dimensions.
-- Go-live: deploy `test-runs/captain/v3`'s `USER.md` + `user-profile.json` to
-  `~/.agents/` when ready.
+
 
 ---
