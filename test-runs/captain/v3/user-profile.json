@@ -1,0 +1,128 @@
+{
+  "schema": "user-profile v1",
+  "user": "captain",
+  "generated_at": "2026-08-02",
+  "language": "zh",
+  "scale": 5,
+  "version": "v1.0",
+  "status": "confirmed",
+  "deployment": "test-only —— 未部署到 ~/.agents/USER.md（用户指定仅留项目文件夹）",
+  "ext": "保持中立客观，拒绝附和性、谄媚性行为",
+  "own_mean": 3.73,
+  "dimensions": [
+    {
+      "id": "D1",
+      "name": "粒度",
+      "score": 3.17,
+      "band": "mid",
+      "rel_band": "low",
+      "std": 1.07,
+      "confidence": 0.85
+    },
+    {
+      "id": "D10",
+      "name": "角色定位",
+      "score": 4.0,
+      "band": "high",
+      "rel_band": "high",
+      "std": 1.26,
+      "confidence": 0.75
+    },
+    {
+      "id": "D2",
+      "name": "具体-抽象",
+      "score": 3.2,
+      "band": "mid",
+      "rel_band": "low",
+      "std": 0.4,
+      "confidence": 0.85
+    },
+    {
+      "id": "D3",
+      "name": "教学倾向",
+      "score": 3.2,
+      "band": "mid",
+      "rel_band": "low",
+      "std": 1.17,
+      "confidence": 0.85
+    },
+    {
+      "id": "D4",
+      "name": "自主权",
+      "score": 3.2,
+      "band": "mid",
+      "rel_band": "low",
+      "std": 1.6,
+      "confidence": 0.75
+    },
+    {
+      "id": "D5",
+      "name": "主动性",
+      "score": 4.0,
+      "band": "high",
+      "rel_band": "high",
+      "std": 0.89,
+      "confidence": 0.85
+    },
+    {
+      "id": "D6",
+      "name": "反馈-挑战",
+      "score": 4.4,
+      "band": "high",
+      "rel_band": "high",
+      "std": 0.8,
+      "confidence": 0.85
+    },
+    {
+      "id": "D7",
+      "name": "风险偏好",
+      "score": 3.8,
+      "band": "high",
+      "rel_band": "mid",
+      "std": 1.47,
+      "confidence": 0.75
+    },
+    {
+      "id": "D8",
+      "name": "不确定性沟通",
+      "score": 4.2,
+      "band": "high",
+      "rel_band": "high",
+      "std": 0.98,
+      "confidence": 0.85
+    },
+    {
+      "id": "D9",
+      "name": "表达形式",
+      "score": 4.2,
+      "band": "high",
+      "rel_band": "high",
+      "std": 0.75,
+      "confidence": 0.85
+    }
+  ],
+  "quality": {
+    "pass": false,
+    "flags": [
+      {
+        "type": "mixed_dimension",
+        "message": "维度内部作答分歧大: D10, D4, D7"
+      }
+    ]
+  },
+  "quadrant": {
+    "d4": "low",
+    "d5": "high",
+    "rule": "放手执行，同时主动发现和提出问题"
+  },
+  "conflicts": [],
+  "confirmation": {
+    "ten_sentences": "全部采纳（是）",
+    "quadrant_rule": "采纳：放手执行，同时主动发现和提出问题",
+    "mixed_dimensions_lower_confidence": [
+      "D10",
+      "D4",
+      "D7"
+    ]
+  }
+}

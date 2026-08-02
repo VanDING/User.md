@@ -1,0 +1,155 @@
+{
+  "version": "1.2",
+  "scale": 5,
+  "generated_at": "2026-08-02T11:22:48",
+  "source_answers": "captain_answers.json",
+  "quality": {
+    "pass": false,
+    "flags": [
+      {
+        "type": "mixed_dimension",
+        "message": "维度内部作答分歧大: D1, D10, D4, D7"
+      }
+    ]
+  },
+  "dimensions": [
+    {
+      "id": "D1",
+      "name": "粒度",
+      "name_en": "Granularity",
+      "score": 3.0,
+      "band": "mid",
+      "std": 1.53,
+      "mixed": true,
+      "rel_band": "low",
+      "confidence": 0.75
+    },
+    {
+      "id": "D10",
+      "name": "角色定位",
+      "name_en": "Role",
+      "score": 3.8,
+      "band": "high",
+      "std": 1.6,
+      "mixed": true,
+      "rel_band": "mid",
+      "confidence": 0.75
+    },
+    {
+      "id": "D2",
+      "name": "具体-抽象",
+      "name_en": "Abstraction",
+      "score": 3.4,
+      "band": "mid",
+      "std": 0.8,
+      "mixed": false,
+      "rel_band": "low",
+      "confidence": 0.85
+    },
+    {
+      "id": "D3",
+      "name": "教学倾向",
+      "name_en": "Teaching",
+      "score": 3.2,
+      "band": "mid",
+      "std": 1.17,
+      "mixed": false,
+      "rel_band": "low",
+      "confidence": 0.85
+    },
+    {
+      "id": "D4",
+      "name": "自主权",
+      "name_en": "Autonomy",
+      "score": 3.2,
+      "band": "mid",
+      "std": 1.6,
+      "mixed": true,
+      "rel_band": "low",
+      "confidence": 0.75
+    },
+    {
+      "id": "D5",
+      "name": "主动性",
+      "name_en": "Proactivity",
+      "score": 4.2,
+      "band": "high",
+      "std": 0.98,
+      "mixed": false,
+      "rel_band": "high",
+      "confidence": 0.85
+    },
+    {
+      "id": "D6",
+      "name": "反馈-挑战",
+      "name_en": "Feedback",
+      "score": 4.6,
+      "band": "high",
+      "std": 0.49,
+      "mixed": false,
+      "rel_band": "high",
+      "confidence": 0.85
+    },
+    {
+      "id": "D7",
+      "name": "风险偏好",
+      "name_en": "Risk",
+      "score": 3.8,
+      "band": "high",
+      "std": 1.47,
+      "mixed": true,
+      "rel_band": "mid",
+      "confidence": 0.75
+    },
+    {
+      "id": "D8",
+      "name": "不确定性沟通",
+      "name_en": "Uncertainty",
+      "score": 4.2,
+      "band": "high",
+      "std": 1.17,
+      "mixed": false,
+      "rel_band": "high",
+      "confidence": 0.85
+    },
+    {
+      "id": "D9",
+      "name": "表达形式",
+      "name_en": "Expression",
+      "score": 4.6,
+      "band": "high",
+      "std": 0.8,
+      "mixed": false,
+      "rel_band": "high",
+      "confidence": 0.85
+    }
+  ],
+  "own_mean": 3.78,
+  "context": {
+    "Y1": {
+      "text": "我的工作以写代码为主。",
+      "answer": false
+    },
+    "Y2": {
+      "text": "我的工作以写作/文档为主。",
+      "answer": true
+    },
+    "Y5": {
+      "text": "我希望 AI 记住我的长期偏好和工作背景。",
+      "answer": true
+    },
+    "Y6": {
+      "text": "我经常在多个任务之间切换。",
+      "answer": true
+    },
+    "Y7": {
+      "text": "我通常一次只专注做一件事。",
+      "answer": true
+    },
+    "Y8": {
+      "text": "我更习惯晚上/深夜工作。",
+      "answer": true
+    }
+  },
+  "language": "en"
+}

@@ -1,0 +1,667 @@
+{
+  "version": "1.0",
+  "title": "AI 协作用户认知测评",
+  "scale": "1-5（同意程度）",
+  "meta": {
+    "scale_points": 5,
+    "anchors": {
+      "1": "完全不同意",
+      "2": "倾向不同意",
+      "3": "中立",
+      "4": "倾向同意",
+      "5": "完全同意"
+    },
+    "languages": [
+      "zh",
+      "en",
+      "bilingual"
+    ],
+    "start_items": [
+      {
+        "id": "LANG",
+        "type": "language",
+        "text_zh": "请选择问卷与生成内容的语言：",
+        "text_en": "Choose your language for the questionnaire and generated profile:",
+        "options": [
+          "中文",
+          "English",
+          "双语 / Bilingual"
+        ]
+      }
+    ],
+    "en": {
+      "title": "AI Collaboration User Assessment",
+      "subtitle": "A ~60-item questionnaire on a 5-point scale. Takes about 8–10 minutes.",
+      "anchors": {
+        "1": "Strongly disagree",
+        "2": "Somewhat disagree",
+        "3": "Neutral",
+        "4": "Somewhat agree",
+        "5": "Strongly agree"
+      },
+      "lang_options": {
+        "zh": "中文",
+        "en": "English",
+        "bilingual": "中文 + English"
+      },
+      "lang_question": "Select the language for this questionnaire and your profile:",
+      "ext_label": "Anything else? (optional)",
+      "ext_placeholder": "e.g. tools you use, projects you work on, situations where AI should behave differently…",
+      "submit_btn": "Generate answer string",
+      "copy_btn": "Copy",
+      "subtitle_zh": "共 60 题 · 打分题 1-5（1 完全不同意 → 5 完全同意）· 其余 是/否 · 预计 8-10 分钟"
+    }
+  },
+  "dimensions": [
+    {
+      "id": "D1",
+      "name": "粒度",
+      "name_en": "Granularity",
+      "meaning_high": "要细节、分步、详尽",
+      "question": "先框架还是先深入？回复详尽还是简洁？"
+    },
+    {
+      "id": "D2",
+      "name": "具体-抽象",
+      "name_en": "Abstraction",
+      "meaning_high": "要例子、通俗解释",
+      "question": "例子 vs 原理？"
+    },
+    {
+      "id": "D3",
+      "name": "教学倾向",
+      "name_en": "Teaching",
+      "meaning_high": "想学、想理解",
+      "question": "教我做还是替我做？"
+    },
+    {
+      "id": "D4",
+      "name": "自主权",
+      "name_en": "Autonomy",
+      "meaning_high": "需要先确认",
+      "question": "先问还是先做？"
+    },
+    {
+      "id": "D5",
+      "name": "主动性",
+      "name_en": "Proactivity",
+      "meaning_high": "想要 AI 主动",
+      "question": "主动建议还是只做交代的事？"
+    },
+    {
+      "id": "D6",
+      "name": "反馈-挑战",
+      "name_en": "Feedback",
+      "meaning_high": "接受直接质疑",
+      "question": "顺着我还是挑战我？"
+    },
+    {
+      "id": "D7",
+      "name": "风险偏好",
+      "name_en": "Risk",
+      "meaning_high": "保守、审慎",
+      "question": "保守 vs 实验？"
+    },
+    {
+      "id": "D8",
+      "name": "不确定性沟通",
+      "name_en": "Uncertainty",
+      "meaning_high": "要区分事实/推测",
+      "question": "要不要明确置信度？"
+    },
+    {
+      "id": "D9",
+      "name": "表达形式",
+      "name_en": "Expression",
+      "meaning_high": "正式、结构化、规范",
+      "question": "什么语气和格式？"
+    },
+    {
+      "id": "D10",
+      "name": "角色定位",
+      "name_en": "Role",
+      "meaning_high": "同事/导师",
+      "question": "AI 是工具、同事还是导师？"
+    }
+  ],
+  "items": [
+    {
+      "id": "T1",
+      "dimension": "D3",
+      "type": "slider",
+      "key": "F",
+      "text": "我更希望 AI 教给我方法和思路，而不是替我把事做完。",
+      "order": 1,
+      "text_en": "I prefer AI to teach me methods and reasoning rather than just doing things for me."
+    },
+    {
+      "id": "G3",
+      "dimension": "D1",
+      "type": "slider",
+      "key": "F",
+      "text": "我希望 AI 分步骤展示进度，而不是一次性给出全部结果。",
+      "order": 2,
+      "text_en": "I want AI to show progress step by step rather than delivering everything at once."
+    },
+    {
+      "id": "R2",
+      "dimension": "D7",
+      "type": "slider",
+      "key": "F",
+      "text": "面对不确定的选择，我宁可多花时间确认，也不想事后返工。",
+      "order": 3,
+      "text_en": "When facing uncertainty, I'd rather take time to confirm than redo work later."
+    },
+    {
+      "id": "A1",
+      "dimension": "D2",
+      "type": "slider",
+      "key": "F",
+      "text": "解释概念时，一两个具体例子比抽象定义更有用。",
+      "order": 4,
+      "text_en": "A couple of concrete examples help me more than abstract definitions."
+    },
+    {
+      "id": "S3",
+      "dimension": "D9",
+      "type": "slider",
+      "key": "F",
+      "text": "我希望 AI 用结构化格式（列表、表格）组织信息。",
+      "order": 5,
+      "text_en": "I prefer AI to organize information in structured formats like lists or tables."
+    },
+    {
+      "id": "C1",
+      "dimension": "D10",
+      "type": "slider",
+      "key": "F",
+      "text": "对我来说，AI 更像是经验丰富但尊重我判断的同事。",
+      "order": 6,
+      "text_en": "For me, AI is like an experienced colleague who respects my judgment."
+    },
+    {
+      "id": "Y1",
+      "dimension": null,
+      "type": "yn",
+      "key": null,
+      "text": "我的工作以写代码为主。",
+      "order": 7,
+      "text_en": "My work is mainly coding."
+    },
+    {
+      "id": "U4",
+      "dimension": "D4",
+      "type": "slider",
+      "key": "F",
+      "text": "给出修改建议前，我希望 AI 先展示将要改变的内容。",
+      "order": 8,
+      "text_en": "Before suggesting changes, I want AI to show what it will modify."
+    },
+    {
+      "id": "G2",
+      "dimension": "D1",
+      "type": "slider",
+      "key": "R",
+      "text": "给 AI 布置任务时，目标说清楚即可，实现细节由 AI 自己把握。",
+      "order": 9,
+      "text_en": "When assigning tasks, I only need to state the goal; AI can handle the details."
+    },
+    {
+      "id": "C2",
+      "dimension": "D10",
+      "type": "slider",
+      "key": "R",
+      "text": "AI 是一个工具，我应该掌握所有决策权。",
+      "order": 10,
+      "text_en": "AI is a tool; I should hold all decision-making authority."
+    },
+    {
+      "id": "P1",
+      "dimension": "D5",
+      "type": "slider",
+      "key": "F",
+      "text": "我希望 AI 主动发现并提出我没提到的问题。",
+      "order": 11,
+      "text_en": "I want AI to proactively raise issues I haven't mentioned."
+    },
+    {
+      "id": "X5",
+      "dimension": "D8",
+      "type": "slider",
+      "key": "R",
+      "text": "AI 的答案听起来越确定，我越放心。",
+      "order": 12,
+      "text_en": "The more certain AI sounds, the more reassured I feel."
+    },
+    {
+      "id": "FB2",
+      "dimension": "D6",
+      "type": "slider",
+      "key": "F",
+      "text": "比起委婉表达，我更喜欢直接了当的反馈。",
+      "order": 13,
+      "text_en": "I prefer direct feedback to diplomatic phrasing."
+    },
+    {
+      "id": "Y2",
+      "dimension": null,
+      "type": "yn",
+      "key": null,
+      "text": "我的工作以写作/文档为主。",
+      "order": 14,
+      "text_en": "My work is mainly writing or documentation."
+    },
+    {
+      "id": "R4",
+      "dimension": "D7",
+      "type": "slider",
+      "key": "F",
+      "text": "重大改动前，我希望有充分的验证和检查点。",
+      "order": 15,
+      "text_en": "Before major changes, I want thorough validation and checkpoints."
+    },
+    {
+      "id": "U5",
+      "dimension": "D4",
+      "type": "slider",
+      "key": "R",
+      "text": "探索性任务，AI 可以直接尝试，不必每一步都问我。",
+      "order": 16,
+      "text_en": "For exploratory tasks, AI can just try things without checking in at each step."
+    },
+    {
+      "id": "S1",
+      "dimension": "D9",
+      "type": "slider",
+      "key": "F",
+      "text": "我更喜欢正式的书面表达，而不是随意的聊天口吻。",
+      "order": 17,
+      "text_en": "I prefer formal written expression over casual chat tone."
+    },
+    {
+      "id": "FB1",
+      "dimension": "D6",
+      "type": "slider",
+      "key": "F",
+      "text": "我的想法有明显缺陷时，我希望 AI 直接指出，而不是顺着我。",
+      "order": 18,
+      "text_en": "When my ideas have clear flaws, I want AI to point them out directly rather than agree."
+    },
+    {
+      "id": "A2",
+      "dimension": "D2",
+      "type": "slider",
+      "key": "F",
+      "text": "我习惯通过类比来理解新概念。",
+      "order": 19,
+      "text_en": "I tend to understand new concepts through analogies."
+    },
+    {
+      "id": "S5",
+      "dimension": "D9",
+      "type": "slider",
+      "key": "R",
+      "text": "AI 的回复实用就好，不必讲究书面正式感。",
+      "order": 20,
+      "text_en": "AI replies just need to be useful; formality isn't necessary."
+    },
+    {
+      "id": "CC2",
+      "dimension": null,
+      "type": "check",
+      "check_type": "attention",
+      "expected": true,
+      "text": "为保证作答质量，这道题请选择“是”。",
+      "order": 21,
+      "text_en": "To ensure quality, please select \"Yes\" for this question."
+    },
+    {
+      "id": "X4",
+      "dimension": "D8",
+      "type": "slider",
+      "key": "F",
+      "text": "做重要决定时，我会追问 AI 的证据来源和可靠程度。",
+      "order": 22,
+      "text_en": "For important decisions, I ask AI about its evidence and reliability."
+    },
+    {
+      "id": "P3",
+      "dimension": "D5",
+      "type": "slider",
+      "key": "R",
+      "text": "我不喜欢 AI 给我没要求的额外建议。",
+      "order": 23,
+      "text_en": "I don't like AI giving me unsolicited extra suggestions."
+    },
+    {
+      "id": "S4",
+      "dimension": "D9",
+      "type": "slider",
+      "key": "F",
+      "text": "我希望 AI 使用准确的标点、完整的句子和规范的格式。",
+      "order": 24,
+      "text_en": "I want AI to use accurate punctuation, complete sentences, and proper formatting."
+    },
+    {
+      "id": "T5",
+      "dimension": "D3",
+      "type": "slider",
+      "key": "R",
+      "text": "同一类任务 AI 做过一次后，我希望它直接代劳。",
+      "order": 25,
+      "text_en": "After AI has done a task type once, I want it to just take over."
+    },
+    {
+      "id": "Y5",
+      "dimension": null,
+      "type": "yn",
+      "key": null,
+      "text": "我希望 AI 记住我的长期偏好和工作背景。",
+      "order": 26,
+      "text_en": "I want AI to remember my long-term preferences and work context."
+    },
+    {
+      "id": "R3",
+      "dimension": "D7",
+      "type": "slider",
+      "key": "R",
+      "text": "我享受尝试新的、未经检验的做法。",
+      "order": 27,
+      "text_en": "I enjoy trying new, untested approaches."
+    },
+    {
+      "id": "FB5",
+      "dimension": "D6",
+      "type": "slider",
+      "key": "R",
+      "text": "我需要被认可，AI 应该多肯定我。",
+      "order": 28,
+      "text_en": "I need validation; AI should affirm me more."
+    },
+    {
+      "id": "X3",
+      "dimension": "D8",
+      "type": "slider",
+      "key": "R",
+      "text": "只要答案大致正确，我不在乎 AI 是否说明置信度。",
+      "order": 29,
+      "text_en": "As long as the answer is roughly correct, I don't care if AI states its confidence."
+    },
+    {
+      "id": "A3",
+      "dimension": "D2",
+      "type": "slider",
+      "key": "R",
+      "text": "解释问题时，抽象原理就够了，具体例子我自己能想出来。",
+      "order": 30,
+      "text_en": "Abstract principles are enough; I can come up with examples myself."
+    },
+    {
+      "id": "P4",
+      "dimension": "D5",
+      "type": "slider",
+      "key": "F",
+      "text": "如果我的做法有更优路径，我希望 AI 主动提出来。",
+      "order": 31,
+      "text_en": "If there's a better approach, I want AI to suggest it proactively."
+    },
+    {
+      "id": "X1",
+      "dimension": "D8",
+      "type": "slider",
+      "key": "F",
+      "text": "当 AI 不确定时，我希望它明确说“我不确定”，而不是自信地猜测。",
+      "order": 32,
+      "text_en": "When AI is uncertain, I want it to say so rather than guess confidently."
+    },
+    {
+      "id": "P5",
+      "dimension": "D5",
+      "type": "slider",
+      "key": "R",
+      "text": "AI 只做我交代的事就好，不用多想。",
+      "order": 33,
+      "text_en": "AI should just do what I ask, no more."
+    },
+    {
+      "id": "Y6",
+      "dimension": null,
+      "type": "yn",
+      "key": null,
+      "text": "我经常在多个任务之间切换。",
+      "order": 34,
+      "text_en": "I often switch between multiple tasks."
+    },
+    {
+      "id": "G4",
+      "dimension": "D1",
+      "type": "slider",
+      "key": "R",
+      "text": "答案中细节过多会让我觉得信息过载。",
+      "order": 35,
+      "text_en": "Too many details in answers make me feel overloaded."
+    },
+    {
+      "id": "R5",
+      "dimension": "D7",
+      "type": "slider",
+      "key": "R",
+      "text": "新方法即使有风险，只要收益够大就值得尝试。",
+      "order": 36,
+      "text_en": "New methods are worth trying if the payoff is large enough, even with risk."
+    },
+    {
+      "id": "A4",
+      "dimension": "D2",
+      "type": "slider",
+      "key": "F",
+      "text": "遇到不熟悉的领域，我希望 AI 用通俗的说法把概念讲清楚。",
+      "order": 37,
+      "text_en": "In unfamiliar domains, I want AI to explain concepts in plain language."
+    },
+    {
+      "id": "CC1",
+      "dimension": null,
+      "type": "check",
+      "check_type": "consistency",
+      "compare_with": [
+        "S3"
+      ],
+      "anchor_yes": 7,
+      "anchor_no": 3,
+      "threshold": 4,
+      "text": "我总体上认为结构化、有条理的信息很重要。",
+      "order": 38,
+      "text_en": "Overall, I consider well-structured, organized information important."
+    },
+    {
+      "id": "G6",
+      "dimension": "D1",
+      "type": "slider",
+      "key": "R",
+      "text": "我偏好简洁的回复，不要过度展开。",
+      "order": 39,
+      "text_en": "I prefer concise replies without over-elaboration."
+    },
+    {
+      "id": "A5",
+      "dimension": "D2",
+      "type": "slider",
+      "key": "R",
+      "text": "我更喜欢严密的技术术语，而不是通俗化解释。",
+      "order": 40,
+      "text_en": "I prefer precise technical terms over plain-language explanations."
+    },
+    {
+      "id": "G1",
+      "dimension": "D1",
+      "type": "slider",
+      "key": "R",
+      "text": "我喜欢先看到整体框架，再进入细节。",
+      "order": 41,
+      "text_en": "I like to see the overall framework first, then go into details."
+    },
+    {
+      "id": "C4",
+      "dimension": "D10",
+      "type": "slider",
+      "key": "R",
+      "text": "重要决策应该由我做，AI 只负责提供信息。",
+      "order": 42,
+      "text_en": "Important decisions should be mine; AI just provides information."
+    },
+    {
+      "id": "S2",
+      "dimension": "D9",
+      "type": "slider",
+      "key": "R",
+      "text": "轻松、随意的语气让我感觉更自然。",
+      "order": 43,
+      "text_en": "A relaxed, casual tone feels more natural to me."
+    },
+    {
+      "id": "P2",
+      "dimension": "D5",
+      "type": "slider",
+      "key": "F",
+      "text": "任务完成后，AI 主动建议下一步是有价值的。",
+      "order": 44,
+      "text_en": "After a task, AI proactively suggesting next steps is valuable."
+    },
+    {
+      "id": "U3",
+      "dimension": "D4",
+      "type": "slider",
+      "key": "R",
+      "text": "常规、无风险的操作，AI 可以直接执行。",
+      "order": 45,
+      "text_en": "For routine, low-risk actions, AI can just proceed."
+    },
+    {
+      "id": "Y7",
+      "dimension": null,
+      "type": "yn",
+      "key": null,
+      "text": "我通常一次只专注做一件事。",
+      "order": 46,
+      "text_en": "I usually focus on one thing at a time."
+    },
+    {
+      "id": "T3",
+      "dimension": "D3",
+      "type": "slider",
+      "key": "R",
+      "text": "我的目标是尽快拿到结果，过程有没有学会不重要。",
+      "order": 47,
+      "text_en": "My goal is to get results quickly; learning the process doesn't matter."
+    },
+    {
+      "id": "G5",
+      "dimension": "D1",
+      "type": "slider",
+      "key": "F",
+      "text": "我更信任附有具体代码、数据和证据的回答。",
+      "order": 48,
+      "text_en": "I trust answers more when they include concrete code, data, and evidence."
+    },
+    {
+      "id": "C5",
+      "dimension": "D10",
+      "type": "slider",
+      "key": "F",
+      "text": "我愿意让 AI 参与讨论和权衡，而不是只听指令。",
+      "order": 49,
+      "text_en": "I'm open to AI participating in discussion and trade-offs, not just following orders."
+    },
+    {
+      "id": "X2",
+      "dimension": "D8",
+      "type": "slider",
+      "key": "F",
+      "text": "我希望 AI 区分“事实”和“推测”。",
+      "order": 50,
+      "text_en": "I want AI to distinguish between facts and speculation."
+    },
+    {
+      "id": "U2",
+      "dimension": "D4",
+      "type": "slider",
+      "key": "F",
+      "text": "涉及删除、重写或移动文件的操作，必须先得到我的明确同意。",
+      "order": 51,
+      "text_en": "Operations that delete, rewrite, or move files must have my explicit approval first."
+    },
+    {
+      "id": "R1",
+      "dimension": "D7",
+      "type": "slider",
+      "key": "F",
+      "text": "我倾向于在动手前把方案想透了，而不是边做边改。",
+      "order": 52,
+      "text_en": "I prefer to think through the plan fully before acting, rather than iterating as I go."
+    },
+    {
+      "id": "Y8",
+      "dimension": null,
+      "type": "yn",
+      "key": null,
+      "text": "我更习惯晚上/深夜工作。",
+      "order": 53,
+      "text_en": "I usually work better in the evening or late at night."
+    },
+    {
+      "id": "T4",
+      "dimension": "D3",
+      "type": "slider",
+      "key": "F",
+      "text": "我希望 AI 解释“为什么这样做”，而不只是“怎么做”。",
+      "order": 54,
+      "text_en": "I want AI to explain the \"why,\" not just the \"how\"."
+    },
+    {
+      "id": "U1",
+      "dimension": "D4",
+      "type": "slider",
+      "key": "F",
+      "text": "即使风险很低，我也希望 AI 动手前先说明它打算做什么。",
+      "order": 55,
+      "text_en": "Even with low risk, I want AI to state what it plans to do before acting."
+    },
+    {
+      "id": "FB3",
+      "dimension": "D6",
+      "type": "slider",
+      "key": "R",
+      "text": "如果 AI 有不同的方案，应该先按我的方案来，再讨论。",
+      "order": 56,
+      "text_en": "If AI has a different approach, it should follow mine first, then discuss."
+    },
+    {
+      "id": "C3",
+      "dimension": "D10",
+      "type": "slider",
+      "key": "F",
+      "text": "我希望 AI 在合适时机主动给出自己的建议，而不只是执行。",
+      "order": 57,
+      "text_en": "I want AI to proactively share its suggestions at the right moments, not just execute."
+    },
+    {
+      "id": "T2",
+      "dimension": "D3",
+      "type": "slider",
+      "key": "F",
+      "text": "我宁可自己动手做，只要 AI 能及时纠正我。",
+      "order": 58,
+      "text_en": "I'd rather do it myself as long as AI corrects me promptly."
+    },
+    {
+      "id": "FB4",
+      "dimension": "D6",
+      "type": "slider",
+      "key": "F",
+      "text": "我欢迎 AI 质疑技术方案，即使我最终可能坚持己见。",
+      "order": 59,
+      "text_en": "I welcome AI challenging my technical decisions, even if I ultimately stick with mine."
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "quadrant": {
+    "d4": "low",
+    "d5": "high",
+    "rule": "放手执行，同时主动发现和提出问题"
+  },
+  "conflicts": []
+}
