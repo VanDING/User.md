@@ -1,5 +1,7 @@
 # User.md — AI Collaboration User Assessment
 
+**English** | [简体中文](README.zh-CN.md)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A psychometric-style assessment that produces a portable, personalized user-collaboration
@@ -46,6 +48,30 @@ graph LR
 | `test-runs/` | Test artifacts: `synthetic/` (4 simulated answer sets: normal / careless / satisficing / roundtrip), `captain/` (two real answer rounds, v1.2 & v3) |
 
 ## Quick start
+
+### Option A — Install as a skill (recommended)
+
+The whole pipeline is packaged as a reusable skill (`skill/user-collab-profile/`).
+Install it by copying the folder into your agent's skills directory:
+
+```bash
+# Craft Agent (global):     ~/.agents/skills/
+cp -r skill/user-collab-profile ~/.agents/skills/
+
+# Craft Agent (workspace):  ~/.craft-agent/workspaces/work/skills/
+# Claude Code:              ~/.claude/skills/
+# opencode:                 ~/.claude/skills/ (Claude Code compatible skills dir)
+```
+
+Then trigger the entire flow with `[skill:user-collab-profile]` — the agent executes the
+full protocol itself: quiz build → answer → parse → score → consistency check → LLM
+profile generation → confirmation loop → environment-aware rendering (CLAUDE.md /
+AGENTS.md / USER.md).
+
+Requirements: `python3` for the scripts; a browser to take the quiz; the LLM step is
+handled by the agent that runs the skill.
+
+### Option B — Run the scripts standalone
 
 ```bash
 # 1. Build the quiz (quiz.html ships with the repo; re-run after item edits)
@@ -130,5 +156,3 @@ convention (web verification pending).
   `~/.agents/` when ready.
 
 ---
-
-*Other languages: [中文版 README](README.zh-CN.md)*

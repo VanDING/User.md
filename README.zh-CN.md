@@ -1,5 +1,7 @@
 # User.md — AI 协作用户认知测评
 
+[English](README.md) | **简体中文**
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 生成可携带的用户协作画像（USER.md / 个性化 AGENTS.md）：一份 60 题心理测量式问卷 →
@@ -42,6 +44,28 @@ graph LR
 | `test-runs/` | 测试产物：`synthetic/` 仿真四组（normal/careless/satisficing/roundtrip）、`captain/` 真实作答两轮（v1.2 与 v3） |
 
 ## 快速开始
+
+### 方式一：安装 skill（推荐）
+
+整套流程已打包为可复用 skill（`skill/user-collab-profile/`）。安装 = 把该目录复制到
+所在 agent 的 skills 目录：
+
+```bash
+# Craft Agent（全局）：   ~/.agents/skills/
+cp -r skill/user-collab-profile ~/.agents/skills/
+
+# Craft Agent（工作区）： ~/.craft-agent/workspaces/work/skills/
+# Claude Code：           ~/.claude/skills/
+# opencode：              ~/.claude/skills/（Claude Code 兼容技能目录）
+```
+
+装好后用 `[skill:user-collab-profile]` 触发，agent 会按 SKILL.md 协议自动跑完整套流程：
+问卷生成 → 作答 → 解析 → 计分 → 一致性检查 → LLM 生成画像 → 确认环节 →
+环境检测渲染落地（CLAUDE.md / AGENTS.md / USER.md）。
+
+依赖：脚本需要 `python3`；作答需要浏览器；LLM 生成一步由运行 skill 的 agent 完成。
+
+### 方式二：独立脚本运行
 
 ```bash
 # 1. 生成问卷（已含 quiz.html，题目改动后重跑）
