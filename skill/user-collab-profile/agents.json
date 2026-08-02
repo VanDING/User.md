@@ -1,0 +1,43 @@
+{
+  "_comment": "Agent 环境 → 画像文档约定映射。detect: env=环境变量信号, dirs=目录信号（任一命中即视为已安装）。global 为全局记忆文件路径，project 为项目内路径。extra 为随文档一起放置的附加文件。",
+  "craftagent": {
+    "label": "Craft Agent",
+    "doc": "USER.md",
+    "project": "USER.md",
+    "global": "~/.agents/USER.md",
+    "extra": ["user-profile.json"],
+    "detect": { "env": ["CRAFT_AGENT_VERSION", "CRAFT_SESSION_DIR", "CRAFT_APP_ROOT"], "dirs": [] }
+  },
+  "claude": {
+    "label": "Claude Code",
+    "doc": "CLAUDE.md",
+    "project": "CLAUDE.md",
+    "global": "~/.claude/CLAUDE.md",
+    "extra": [],
+    "detect": { "env": ["CLAUDE_CODE"], "dirs": ["~/.claude"] }
+  },
+  "codex": {
+    "label": "OpenAI Codex",
+    "doc": "AGENTS.md",
+    "project": "AGENTS.md",
+    "global": "~/.codex/AGENTS.md",
+    "extra": [],
+    "detect": { "env": ["CODEX_HOME", "OPENAI_CODEX"], "dirs": ["~/.codex"] }
+  },
+  "opencode": {
+    "label": "opencode",
+    "doc": "AGENTS.md",
+    "project": "AGENTS.md",
+    "global": "~/.config/opencode/AGENTS.md",
+    "extra": [],
+    "detect": { "env": ["OPENCODE"], "dirs": ["~/.config/opencode"] }
+  },
+  "workbuddy": {
+    "label": "WorkBuddy",
+    "doc": "AGENTS.md",
+    "project": "AGENTS.md",
+    "global": "~/.workbuddy/AGENTS.md",
+    "extra": [],
+    "detect": { "env": ["WORKBUDDY", "WORK_BUDDY_HOME"], "dirs": ["~/.workbuddy"] }
+  }
+}

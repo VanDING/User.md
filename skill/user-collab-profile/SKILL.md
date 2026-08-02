@@ -60,9 +60,16 @@ alwaysAllow: ["Bash", "Write", "Read"]
    - 把十条确认句 + 冲突裁决问题呈现给用户，回答选项：是 / 否 / 部分正确
    - 汇总修正 → 需要时让 LLM 按修正重写 USER.md 草案
 
-7. **落地**
-   - 确认通过后写入：`~/.agents/USER.md`（≤80 行）+ `~/.agents/user-profile.json`
-   - 保留本次产物（answers/profile/conflicts/生成稿）到会话 data 目录，便于追溯
+7. **落地（含环境适配）**
+   - 确认通过后先写规范文档（canonical USER.md + user-profile.json 到会话 data 目录）
+   - 检测用户所在 agent 环境，渲染成对应文档：
+     `python3 detect_env.py`（检测 / `--list` 列全部 / `--agent <slug>` 强制指定）
+     `python3 render_profile.py USER.md --agent <slug> --dest project|global [--force]`
+   - agent → 文档约定见 `agents.json`：craftagent→`USER.md`（全局 ~/.agents/USER.md，
+     另附 user-profile.json）；claude→`CLAUDE.md`（全局 ~/.claude/CLAUDE.md）；
+     codex/opencode/workbuddy→`AGENTS.md`（全局分别 ~/.codex / ~/.config/opencode /
+     ~/.workbuddy 下，WorkBuddy 路径为暂定约定，待官方文档核实）
+   - 默认写项目内（--dest project）；写全局记忆（--dest global）必须显式指定
 
 ## 更新协议（living）
 
